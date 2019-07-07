@@ -1,0 +1,40 @@
+---
+title: "Plotly Presentation"
+author: "Peter Dunham"
+date: "March 6, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Plotly 3D Surface Plot
+
+The following surface plot was created with Plotly in R. The raw data was collected with a scanner on a motion platform similar to a 3D scanner. The item being shown is a portion of a semiconductor wafer holder ("a chuck").  Because of the amount of data, it may take some time to load, but is responsive after initial loading.  I found this plotly renders fine in Chrome and MS Edge, it currently does not appear to load in Firefox.
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+  library(dplyr)
+  library(akima)
+  library(plotly)
+  
+  data<-read.csv("Chuck.txt")
+  names(data)<-c("location","xpos","ypos","ain")
+  data$ain<-data$ain*-1
+  
+  x<-data$xpos
+  y<-data$ypos
+  z<-data$ain
+  
+  #yop and xop determine resolution of surface plot
+  # these are use as interp parameters
+  yop<-as.matrix(seq(-11800, 11800, 100))
+  xop<-as.matrix(seq(-12000, 12000, 100))
+  
+  data<-data.frame(x,y,z)
+  chuckToPlot <- with(data,interp(x,y,z, yo=yop, xo=xop))
+  #with(chuckToPlot,image(x,y,z))
+  plot_ly(z=chuckToPlot$z, type="surface")
+```
+
+
