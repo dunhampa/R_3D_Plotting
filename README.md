@@ -3,7 +3,7 @@
 
 ## Semiconductor Chuck:
 
-[![](https://github.com/dunhampa/R_3D_Scanner_Plotting/blob/master/content/Chuck3DScan.png)](#)
+[![Chuck 3D Scan](https://github.com/dunhampa/R_3D_Scanner_Plotting/blob/master/content/Chuck3DScan.png)](https://dunhampa.github.io/R_3D_Scanner_Plotting/ "Interactive Plotly 3D Chuck")
 
 ## Circuit Board Scanned and Plotted:
 
