@@ -1,0 +1,34 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE,cache=TRUE}
+  library(dplyr)
+  library(akima)
+  library(plotly)
+  
+  data<-read.csv("Chuck.txt")
+  names(data)<-c("location","xpos","ypos","ain")
+  data$ain<-data$ain*-1
+  
+  x<-data$xpos
+  y<-data$ypos
+  z<-data$ain
+  
+  #yop and xop determine resolution of surface plot
+  # these are use as interp parameters
+  yop<-as.matrix(seq(-11800, 11800, 100))
+  xop<-as.matrix(seq(-12000, 12000, 100))
+  
+  data<-data.frame(x,y,z)
+  chuckToPlot <- with(data,interp(x,y,z, yo=yop, xo=xop))
+  #with(chuckToPlot,image(x,y,z))
+  plot_ly(z=chuckToPlot$z, type="surface")
+```
+
+
